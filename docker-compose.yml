@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    build: ./data
+#    image: ngovanhuy0241/docker-magento-multiple-db
+    environment:
+      MYSQL_ROOT_PASSWORD: magento
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - webnet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 2125:80
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: magento
+    depends_on:
+      - db
+    networks:
+      - webnet
+networks:
+  webnet:
