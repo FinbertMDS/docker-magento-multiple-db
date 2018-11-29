@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  db:
+    build: ./data
+    environment:
+      MYSQL_ROOT_PASSWORD: magento
+    networks:
+      - webnet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 2125:80
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: magento
+    depends_on:
+      - db
+    networks:
+      - webnet
+
+  php:
+    build: ./php
+    container_name: docker-magento-multiple-db_php_1
+    environment:
+      MYSQL_HOST: db
+      MYSQL_ROOT_PASSWORD: magento
+    networks:
+      - webnet
+
+networks:
+  webnet:

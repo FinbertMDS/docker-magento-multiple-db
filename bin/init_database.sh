@@ -29,20 +29,20 @@ function validate_sql_files_init_folder() {
             fi
         fi
     done
-    if [[ ${has_backup_sql} = 1 ]]; then
-        remove_backups_sql
-    fi
+#    if [[ ${has_backup_sql} = 1 ]]; then
+#        remove_backups_sql
+#    fi
 }
 
-function remove_backups_sql() {
-    echo "Backups folder is files sql in folder init but it isn't belong to version Magento in file .env"
-    print_color 'Are you want remove backups folder? y/n?' 'red'
-    read flag
-    if [[ ${flag} = [Yy]* ]]; then
-        rm -rf data/backups
-        echo 'Removed backups folder.'
-    fi
-}
+#function remove_backups_sql() {
+#    echo "Backups folder is files sql in folder init but it isn't belong to version Magento in file .env"
+#    print_color 'Are you want remove backups folder? y/n?' 'red'
+#    read flag
+#    if [[ ${flag} = [Yy]* ]]; then
+#        rm -rf data/backups
+#        echo 'Removed backups folder.'
+#    fi
+#}
 
 function main() {
     create_file_init_database_mysql

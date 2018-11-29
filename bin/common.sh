@@ -54,3 +54,28 @@ function print_color() {
         esac
     fi
 }
+
+function calculate_time_run_command() {
+    start=$(date +%s)
+    $1
+    end=$(date +%s)
+    diff=$(( $end - $start ))
+    echo "+ ${1}: It took $diff seconds"
+}
+
+# quit process
+function bail() {
+    echo 'Error executing command, exiting'
+    exit 1
+}
+
+# exec cmd, if error still continuous process
+function exec_cmd_nobail() {
+    echo "+ $1"
+    bash -c "$1"
+}
+
+# exec cmd, if error quit process
+function exec_cmd() {
+    exec_cmd_nobail "$1" || bail
+}

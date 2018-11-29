@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     build: ./data
-#    image: ngovanhuy0241/docker-magento-multiple-db
+    container_name: docker-magento-multiple-db_db_1
     environment:
       MYSQL_ROOT_PASSWORD: magento
     volumes:
@@ -23,5 +23,15 @@ services:
       - db
     networks:
       - webnet
+
+  php:
+    build: ./php
+    container_name: docker-magento-multiple-db_php_1
+    environment:
+      MYSQL_HOST: db
+      MYSQL_ROOT_PASSWORD: magento
+    networks:
+      - webnet
+
 networks:
   webnet:
