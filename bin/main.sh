@@ -34,6 +34,7 @@ function build_container() {
     docker-compose up -d
 }
 
+# TODO wait for import data to mariadb done _ not done
 function wait_for_import_db_done() {
     docker_container_name='docker-magento-multiple-db_php_1'
     for i in "${MAGENTO_VERSION_ARRAY[@]}"

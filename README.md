@@ -6,10 +6,9 @@
     - Magento 1 - Php 5.6
       + 1.9.3.10: magento19310
     - Magento 2.1 - Php 7.0
-      + 2.1.15: magento21157
+      + 2.1.16: magento21167
     - Magento 2.2 - Php 7.1
-      + 2.2.5: magento22571
-      + 2.2.6: magento22671
+      + 2.2.7: magento22771
       
 2. Rule named database Magento: magento + ('versionMagento' + 'versionPhp') (max is 5 character).
 
