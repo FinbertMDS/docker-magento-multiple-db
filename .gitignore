@@ -1,3 +1,4 @@
 .idea
 mysql
 database.sql
+data/init

@@ -79,3 +79,9 @@ function exec_cmd_nobail() {
 function exec_cmd() {
     exec_cmd_nobail "$1" || bail
 }
+
+function join_array_to_string {
+    local IFS="$1";
+    shift;
+    echo "$*";
+}

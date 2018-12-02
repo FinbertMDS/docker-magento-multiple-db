@@ -44,9 +44,25 @@ function validate_sql_files_init_folder() {
 #    fi
 #}
 
+function copy_sql_from_backup_to_init() {
+    rm -rf data/init
+    mkdir -p data/init
+    find data/backups/ -type f  ! -name "*.sql" -delete
+    for file_path in data/backups/*.sql ; do
+        if [[ ! ${file_path} == *database.sql ]]; then
+            file_name=${file_path##*/}
+            file_name=${file_name%.*}
+            if [[ ${MAGENTO_VERSIONES} == *${file_name}* ]]; then
+                cp ${file_path} 'data/init/'
+            fi
+        fi
+    done
+}
+
 function main() {
+    copy_sql_from_backup_to_init
     create_file_init_database_mysql
-    validate_sql_files_init_folder
+#    validate_sql_files_init_folder
     echo 'Please place some file sql at folder data/init.'
 }
 
