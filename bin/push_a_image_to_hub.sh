@@ -7,7 +7,7 @@ function create_dockerfile_build_container() {
     dockerfile='data/Dockerfile'
     rm -f ${dockerfile}
 cat >${dockerfile} <<EOL
-FROM mariadb
+FROM mariadb:10.0
 
 COPY init /docker-entrypoint-initdb.d/
 #COPY mysql /var/lib/mysql
@@ -18,7 +18,7 @@ function create_dockerfile_build_image() {
     dockerfile='data/Dockerfile'
     rm -f ${dockerfile}
 cat >${dockerfile} <<EOL
-FROM mariadb
+FROM mariadb:10.0
 
 #COPY init /docker-entrypoint-initdb.d/
 COPY mysql /var/lib/mysql
