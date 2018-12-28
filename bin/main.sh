@@ -36,10 +36,10 @@ function build_container() {
 
 # TODO wait for import data to mariadb done _ not done
 function wait_for_import_db_done() {
-    docker_container_name='docker-magento-multiple-db_php_1'
+    local docker_container_name='docker-magento-multiple-db_php_1'
     for i in "${MAGENTO_VERSION_ARRAY[@]}"
     do
-        exec_cmd "docker exec ${docker_container_name} bash -c \"MYSQL_DATABASE=magento`get_port_service_docker "${i}"` php -f mysql.php\""
+        exec_cmd "docker exec ${docker_container_name} bash -c \"MYSQL_DATABASE=test php -f mysql.php\""
     done
 }
 

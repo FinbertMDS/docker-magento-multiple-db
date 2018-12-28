@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: docker-magento-multiple-db_db
+    image: ngovanhuy0241/docker-magento-multiple-db:2.3.0
     environment:
       MYSQL_ROOT_PASSWORD: magento
     networks:

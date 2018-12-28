@@ -11,10 +11,10 @@ function init_file_env_a_version_magento() {
 }
 
 function calculate_time_run_command() {
-    start=$(date +%s)
+    local start=$(date +%s)
     $1
-    end=$(date +%s)
-    diff=$(( $end - $start ))
+    local end=$(date +%s)
+    local diff=$(( $end - $start ))
     echo "+ ${1}: It took $diff seconds"
 }
 

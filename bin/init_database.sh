@@ -4,9 +4,10 @@ source bin/common.sh
 
 # init file data/init/database.sql dynamic by magento version
 function create_file_init_database_mysql() {
-    init_database_file='data/init/database.sql'
+    local init_database_file='data/init/database.sql'
     rm -f ${init_database_file}
     touch ${init_database_file}
+    cp "data/backups/database.sql" ${init_database_file}
     for i in "${MAGENTO_VERSION_ARRAY[@]}"
     do
         local port_service_docker=`get_port_service_docker "${i}"`
@@ -18,11 +19,11 @@ function create_file_init_database_mysql() {
 function validate_sql_files_init_folder() {
     mkdir -p data/backups
     find data/init/ -type f  ! -name "*.sql" -delete
-    has_backup_sql=0
+    local has_backup_sql=0
     for file_path in data/init/*.sql ; do
         if [[ ! ${file_path} == *database.sql ]]; then
-            file_name=${file_path##*/}
-            file_name=${file_name%.*}
+            local file_name=${file_path##*/}
+            local file_name=${file_name%.*}
             if [[ ! ${MAGENTO_VERSIONES} == *${file_name}* ]]; then
                 mv ${file_path} 'data/backups/'
                 has_backup_sql=1
@@ -50,8 +51,8 @@ function copy_sql_from_backup_to_init() {
     find data/backups/ -type f  ! -name "*.sql" -delete
     for file_path in data/backups/*.sql ; do
         if [[ ! ${file_path} == *database.sql ]]; then
-            file_name=${file_path##*/}
-            file_name=${file_name%.*}
+            local file_name=${file_path##*/}
+            local file_name=${file_name%.*}
             if [[ ${MAGENTO_VERSIONES} == *${file_name}* ]]; then
                 cp ${file_path} 'data/init/'
             fi

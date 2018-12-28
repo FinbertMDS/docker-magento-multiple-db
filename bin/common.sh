@@ -5,7 +5,7 @@ MAGENTO_VERSION_ARRAY=(${MAGENTO_VERSIONES//,/ })
 
 # get version php from version magento
 function get_version_php() {
-    php_version=""
+    local php_version=""
     if [[ ${1} == 2.2* ]]; then
         php_version="7.1"
     elif [[ ${1} == 2.1* ]]; then
@@ -20,7 +20,7 @@ function get_version_php() {
 # if port >= 6 character, remove last character
 # ex: version magento is 2.2.6 => port: 22671; 2.1.15 => port: 21157; 1.9.3.10 => port: 19310
 function get_port_service_docker() {
-    port_service_docker=''
+    local port_service_docker=''
     local php_version=`get_version_php "${1}"`
     if [[ ! -z "${php_version}" ]]; then
         port_service_docker="${1//./}""${php_version//./}"
@@ -34,13 +34,13 @@ function get_port_service_docker() {
 # print with in one of the colors: red, green, reset
 # ex: print_color 'string' 'color'
 function print_color() {
-    red=`tput setaf 1`
-    green=`tput setaf 2`
-    yellow=`tput setaf 3`
-    blue=`tput setaf 4`
-    magenta=`tput setaf 5`
-    cyan=`tput setaf 6`
-    reset=`tput sgr0`
+    local red=`tput setaf 1`
+    local green=`tput setaf 2`
+    local yellow=`tput setaf 3`
+    local blue=`tput setaf 4`
+    local magenta=`tput setaf 5`
+    local cyan=`tput setaf 6`
+    local reset=`tput sgr0`
 
     if [[ ! -z  $1 ]]; then
         case "$2" in
@@ -56,10 +56,10 @@ function print_color() {
 }
 
 function calculate_time_run_command() {
-    start=$(date +%s)
+    local start=$(date +%s)
     $1
-    end=$(date +%s)
-    diff=$(( $end - $start ))
+    local end=$(date +%s)
+    local diff=$(( $end - $start ))
     echo "+ ${1}: It took $diff seconds"
 }
 

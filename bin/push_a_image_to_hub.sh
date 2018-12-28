@@ -4,7 +4,7 @@ source bin/common.sh
 source bin/init_database.sh
 
 function create_dockerfile_build_container() {
-    dockerfile='data/Dockerfile'
+    local dockerfile='data/Dockerfile'
     rm -f ${dockerfile}
 cat >${dockerfile} <<EOL
 FROM mariadb
@@ -15,7 +15,7 @@ EOL
 }
 
 function create_dockerfile_build_image() {
-    dockerfile='data/Dockerfile'
+    local dockerfile='data/Dockerfile'
     rm -f ${dockerfile}
 cat >${dockerfile} <<EOL
 FROM mariadb
@@ -36,10 +36,10 @@ function build_container() {
 
 # TODO wait for import data to mariadb done _ not done
 function wait_for_import_db_done() {
-    docker_container_name='docker-magento-multiple-db_php_1'
+    local docker_container_name='docker-magento-multiple-db_php_1'
     for i in "${MAGENTO_VERSION_ARRAY[@]}"
     do
-        exec_cmd "docker exec ${docker_container_name} bash -c \"MYSQL_DATABASE=magento`get_port_service_docker "${i}"` php -f mysql.php\""
+        exec_cmd "docker exec ${docker_container_name} bash -c \"MYSQL_DATABASE=test php -f mysql.php\""
     done
 }
 
@@ -52,7 +52,7 @@ function build_image() {
 
 function push_image_to_docker_hub() {
     local tag_magento_db=`join_array_to_string _ ${MAGENTO_VERSION_ARRAY[@]}`
-    docker_hub_name="ngovanhuy0241/docker-magento-multiple-db:${tag_magento_db}"
+    local docker_hub_name="ngovanhuy0241/docker-magento-multiple-db:${tag_magento_db}"
     docker login
     docker tag docker-magento-multiple-db_db ${docker_hub_name}
     docker push ${docker_hub_name}
